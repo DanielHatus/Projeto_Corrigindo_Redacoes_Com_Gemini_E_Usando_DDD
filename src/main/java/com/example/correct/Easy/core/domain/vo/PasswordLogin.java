@@ -1,13 +1,16 @@
 package com.example.correct.Easy.core.domain.vo;
 
 import com.example.correct.Easy.core.exceptions.DomainException;
+import com.example.correct.Easy.core.ports.BcryptPort;
 
 public class PasswordLogin{
     private String passwordLogin;
 
-    public PasswordLogin(String passwordLogin,boolean passwordLoginIsRegister){
-     if (!passwordLoginIsRegister){
-         validatePasswordLogin(passwordLogin);
+
+    public PasswordLogin(String passwordLogin,boolean isFromPersistence,BcryptPort bcryptPort){
+     if (!isFromPersistence){
+         this.passwordLogin= bcryptPort.encrypted(validatePasswordLogin(passwordLogin));
+         return ;
      }
      this.passwordLogin=passwordLogin;
     }

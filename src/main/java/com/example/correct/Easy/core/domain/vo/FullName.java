@@ -42,7 +42,7 @@ public class FullName{
         StringBuilder builder=new StringBuilder();
         for(String n:nameSplited){
             String nameCapitalized=n.substring(0,1).toUpperCase()+n.substring(1).toLowerCase();
-            builder.append(nameCapitalized+"");
+            builder.append(nameCapitalized+" ");
         }
 
         return builder.toString().trim();
