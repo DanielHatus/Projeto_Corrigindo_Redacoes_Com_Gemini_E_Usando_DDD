@@ -1,0 +1,26 @@
+package com.example.correct.Easy.infra.exception.response.filter;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
+
+import java.io.IOException;
+import java.util.Date;
+import java.util.Map;
+
+public class ResponseEntry implements AuthenticationEntryPoint{
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+        response.setContentType("application/json");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        Date act=new Date();
+        Map<String,Object> map=Map.of("message",authException.getMessage(),
+                "timestamp",act);
+
+        ObjectMapper mapper=new ObjectMapper();
+        mapper.writeValue(response.getWriter(),map);
+    }
+}
