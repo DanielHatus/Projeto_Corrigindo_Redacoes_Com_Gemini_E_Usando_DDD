@@ -1,7 +1,9 @@
 package com.example.correct.Easy.infra.exception.typo.secundaries.security;
 
-public class TokenExpiredException extends RuntimeException {
-  public TokenExpiredException(String message) {
-    super(message);
-  }
+import org.springframework.security.core.AuthenticationException;
+
+public class TokenExpiredException extends AuthenticationException {
+    public TokenExpiredException(String message) {
+        super(message);
+    }
 }

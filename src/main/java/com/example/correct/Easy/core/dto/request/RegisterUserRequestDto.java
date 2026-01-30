@@ -2,7 +2,7 @@ package com.example.correct.Easy.core.dto.request;
 
 import com.example.correct.Easy.core.dto.request.vo.FullNameDto;
 
-public class UserRegisterRequestDto{
+public class RegisterUserRequestDto {
     private FullNameDto fullName;
     private String email;
     private String passwordLogin;

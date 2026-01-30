@@ -7,7 +7,7 @@ import com.example.correct.Easy.core.application.usecase.contracts.tokenversion.
 import com.example.correct.Easy.core.application.usecase.contracts.user.RegisterUserContract;
 import com.example.correct.Easy.core.domain.model.UserDomain;
 import com.example.correct.Easy.core.domain.model.VersionTokenDomain;
-import com.example.correct.Easy.core.dto.request.UserRegisterRequestDto;
+import com.example.correct.Easy.core.dto.request.RegisterUserRequestDto;
 import com.example.correct.Easy.core.dto.response.TokensJwtResponseDto;
 
 public class RegisterUserOrchestrator{
@@ -23,7 +23,7 @@ public class RegisterUserOrchestrator{
         this.registerVersionToken = registerVersionToken;
     }
 
-    public TokensJwtResponseDto execute(UserRegisterRequestDto dto){
+    public TokensJwtResponseDto execute(RegisterUserRequestDto dto){
         UserDomain entityDomain=registerUser.execute(dto);
         VersionTokenDomain versionToken=registerVersionToken.execute(entityDomain);
 

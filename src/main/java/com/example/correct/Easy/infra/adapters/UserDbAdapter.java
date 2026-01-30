@@ -1,7 +1,7 @@
 package com.example.correct.Easy.infra.adapters;
 
 import com.example.correct.Easy.core.domain.model.UserDomain;
-import com.example.correct.Easy.core.ports.UserRepositoryPort;
+import com.example.correct.Easy.core.ports.user.db.UserDbPort;
 import com.example.correct.Easy.infra.mapper.UserMapper;
 import com.example.correct.Easy.infra.persistence.model.UserPersistence;
 import com.example.correct.Easy.infra.persistence.repository.UserRepository;
@@ -10,14 +10,14 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class UserRepositoryAdapter implements UserRepositoryPort{
+public class UserDbAdapter implements UserDbPort {
 
 
     private final UserPersistence userPersistence;
     private final UserRepository repository;
     private final UserMapper mapper;
 
-    public UserRepositoryAdapter(UserPersistence userPersistence, UserRepository repository, UserMapper mapper) {
+    public UserDbAdapter(UserPersistence userPersistence, UserRepository repository, UserMapper mapper) {
         this.userPersistence = userPersistence;
         this.repository = repository;
         this.mapper = mapper;

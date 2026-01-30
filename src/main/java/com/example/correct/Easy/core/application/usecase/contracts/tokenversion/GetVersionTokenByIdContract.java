@@ -1,4 +1,8 @@
 package com.example.correct.Easy.core.application.usecase.contracts.tokenversion;
 
-public interface GetVersionTokenByidContract {
+import com.example.correct.Easy.core.domain.model.VersionTokenDomain;
+
+public interface GetVersionTokenByIdContract{
+    VersionTokenDomain execute(Long id);
+
 }

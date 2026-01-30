@@ -16,6 +16,11 @@ public class UserDetailsImpl implements UserDetails{
         this.entityPersistence=entity;
     }
 
+
+    public String getFullName(){
+        return this.entityPersistence.getFullName();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(this.entityPersistence.getPermission().name()));

@@ -27,7 +27,7 @@ public class GenerateAccessToken{
         return Jwts.builder()
                 .claim("email",email)
                 .claim("id",id)
-                .claim("tokenVersion",tokenVersion)
+                .claim("versionToken",tokenVersion)
                 .setIssuedAt(now)
                 .setExpiration(timeExpiration)
                 .signWith(keySecret.execute(), SignatureAlgorithm.HS256)

@@ -1,10 +1,10 @@
-package com.example.correct.Easy.core.ports;
+package com.example.correct.Easy.core.ports.user.db;
 
 import com.example.correct.Easy.core.domain.model.UserDomain;
 
 import java.util.Optional;
 
-public interface UserRepositoryPort{
+public interface UserDbPort {
     Optional<UserDomain> findById(Long id);
     UserDomain saveEntity(UserDomain entity);
     UserDomain updateEntity(UserDomain entity);

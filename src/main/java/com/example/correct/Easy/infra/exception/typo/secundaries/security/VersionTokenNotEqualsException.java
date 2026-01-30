@@ -1,7 +1,9 @@
 package com.example.correct.Easy.infra.exception.typo.secundaries.security;
 
-public class VersionTokenNotEqualsExcpetion extends RuntimeException {
-  public VersionTokenNotEqualsExcpetion(String message) {
-    super(message);
-  }
+import org.springframework.security.core.AuthenticationException;
+
+public class VersionTokenNotEqualsException extends AuthenticationException {
+    public VersionTokenNotEqualsException(String message) {
+        super(message);
+    }
 }

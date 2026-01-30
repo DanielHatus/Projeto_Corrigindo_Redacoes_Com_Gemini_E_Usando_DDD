@@ -1,7 +1,9 @@
 package com.example.correct.Easy.infra.exception.typo.secundaries.security;
 
-public class TokenAssignatureInvalidException extends RuntimeException {
-  public TokenAssignatureInvalidException(String message) {
-    super(message);
-  }
+import org.springframework.security.core.AuthenticationException;
+
+public class TokenSignatureInvalidException extends AuthenticationException {
+    public TokenSignatureInvalidException(String message) {
+        super(message);
+    }
 }

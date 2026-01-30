@@ -1,7 +1,9 @@
 package com.example.correct.Easy.infra.exception.typo.secundaries.security;
 
-public class HeaderIsIncorrect extends RuntimeException {
-  public HeaderIsIncorrect(String message) {
-    super(message);
-  }
+import org.springframework.security.core.AuthenticationException;
+
+public class HeaderIsIncorrect extends AuthenticationException {
+    public HeaderIsIncorrect(String message) {
+        super(message);
+    }
 }
