@@ -3,7 +3,7 @@ package com.example.correct.Easy.core.application.orchestrator;
 
 import com.example.correct.Easy.core.application.usecase.contracts.tokens.GenerateAccessTokenContract;
 import com.example.correct.Easy.core.application.usecase.contracts.tokens.GenerateRefreshTokenContract;
-import com.example.correct.Easy.core.application.usecase.contracts.tokenversion.RegisterVersionTokenContract;
+import com.example.correct.Easy.core.application.usecase.contracts.versiontoken.RegisterVersionTokenContract;
 import com.example.correct.Easy.core.application.usecase.contracts.user.RegisterUserContract;
 import com.example.correct.Easy.core.domain.model.UserDomain;
 import com.example.correct.Easy.core.domain.model.VersionTokenDomain;

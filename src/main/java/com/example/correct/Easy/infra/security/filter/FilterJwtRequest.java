@@ -3,7 +3,7 @@ package com.example.correct.Easy.infra.security.filter;
 import com.example.correct.Easy.infra.exception.response.filter.ResponseEntryException;
 import com.example.correct.Easy.infra.exception.typo.secundaries.security.HeaderIsIncorrect;
 import com.example.correct.Easy.infra.security.implementations.UserDetailsServiceImpl;
-import com.example.correct.Easy.infra.security.utils.GetEmailByPayload;
+import com.example.correct.Easy.infra.security.utils.GetIdlByPayload;
 import com.example.correct.Easy.infra.security.validation.ValidateToken;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,17 +22,16 @@ import java.io.IOException;
 public class FilterJwtRequest extends OncePerRequestFilter{
 
     private final ValidateToken validateToken;
-    private final GetEmailByPayload getEmail;
+    private final GetIdlByPayload getId;
     private final UserDetailsServiceImpl userDetailsServiceImpl;
     private final ResponseEntryException entryException;
 
-    public FilterJwtRequest(ValidateToken validateToken, GetEmailByPayload getEmail, UserDetailsServiceImpl userDetailsServiceImpl, ResponseEntryException entryException) {
+    public FilterJwtRequest(ValidateToken validateToken, GetIdlByPayload getId, UserDetailsServiceImpl userDetailsServiceImpl, ResponseEntryException entryException) {
         this.validateToken = validateToken;
-        this.getEmail = getEmail;
+        this.getId = getId;
         this.userDetailsServiceImpl = userDetailsServiceImpl;
         this.entryException = entryException;
     }
-
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
@@ -66,8 +65,8 @@ public class FilterJwtRequest extends OncePerRequestFilter{
     }
 
     private void saveUserAuthenticatedInContextSecurity(String token){
-        String emailUserPayload=getEmail.execute(token);
-        UserDetails userDetails=userDetailsServiceImpl.loadUserByUsername(emailUserPayload);
+        String idUserConvertInString=String.valueOf(this.getId.execute(token));
+        UserDetails userDetails=userDetailsServiceImpl.loadUserByUsername(idUserConvertInString);
         UsernamePasswordAuthenticationToken authenticationToken=
                 new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);

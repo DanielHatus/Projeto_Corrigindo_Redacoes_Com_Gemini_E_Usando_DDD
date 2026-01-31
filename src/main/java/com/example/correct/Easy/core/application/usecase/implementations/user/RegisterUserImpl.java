@@ -21,7 +21,7 @@ public class RegisterUserImpl implements RegisterUserContract {
 
     @Override
     public UserDomain execute(RegisterUserRequestDto dto) {
-       UserDomain entity=this.coreMapper.toUserDomain(dto);
+       UserDomain entity=this.coreMapper.toDomain(dto);
        UserDomain entitySaved=userDbPort.saveEntity(entity);
        this.userCachePort.saveUserInCache(entitySaved);
        return entitySaved;

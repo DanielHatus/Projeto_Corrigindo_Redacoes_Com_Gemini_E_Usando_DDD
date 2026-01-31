@@ -7,9 +7,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.TimeUnit;
+
 @Component
 public class UserCacheAdapter implements UserCachePort{
-
 
     private final RedisTemplate<String,Object> redisTemplate;
     private final GenerateKeyCache keyCache;
@@ -25,7 +26,7 @@ public class UserCacheAdapter implements UserCachePort{
     public void saveUserInCache(UserDomain entity) {
         try{
         String keyCache=this.keyCache.execute("user",entity.getId());
-        redisTemplate.opsForValue().set(keyCache,entity);
+        redisTemplate.opsForValue().set(keyCache,entity,1L, TimeUnit.HOURS);
       }catch (Exception e){
 
         }
@@ -41,7 +42,7 @@ public class UserCacheAdapter implements UserCachePort{
     @Override
     public void updateUserInCache(UserDomain entity) {
         String keyGenerated=this.keyCache.execute("user",entity.getId());
-        this.redisTemplate.opsForValue().set(keyGenerated,entity);
+        this.redisTemplate.opsForValue().set(keyGenerated,entity,1L,TimeUnit.HOURS);
     }
 
     @Override

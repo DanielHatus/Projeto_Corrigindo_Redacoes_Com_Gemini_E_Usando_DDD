@@ -1,6 +1,6 @@
-package com.example.correct.Easy.core.application.usecase.implementations.tokenversion;
+package com.example.correct.Easy.core.application.usecase.implementations.versiontoken;
 
-import com.example.correct.Easy.core.application.usecase.contracts.tokenversion.RegisterVersionTokenContract;
+import com.example.correct.Easy.core.application.usecase.contracts.versiontoken.RegisterVersionTokenContract;
 import com.example.correct.Easy.core.domain.model.UserDomain;
 import com.example.correct.Easy.core.domain.model.VersionTokenDomain;
 import com.example.correct.Easy.core.ports.versiontoken.cache.VersionTokenCachePort;

@@ -1,28 +1,39 @@
 package com.example.correct.Easy.infra.security.implementations;
 
+import com.example.correct.Easy.core.application.usecase.contracts.user.GetUserByIdContract;
+import com.example.correct.Easy.core.domain.model.UserDomain;
+import com.example.correct.Easy.infra.exception.typo.primaries.InternalServerErroInfraException;
 import com.example.correct.Easy.infra.exception.typo.primaries.NotFoundInfraException;
 import com.example.correct.Easy.infra.persistence.repository.UserRepository;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
+
+@Component
 public class UserDetailsServiceImpl implements UserDetailsService{
 
-    private UserRepository repository;
+    private final GetUserByIdContract getUserById;
 
-    public UserDetailsServiceImpl(UserRepository repository) {
-        this.repository = repository;
+    public UserDetailsServiceImpl(GetUserByIdContract getUserById) {
+        this.getUserById = getUserById;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String idUserInStringFormat) throws UsernameNotFoundException {
         try{
-          UserDetailsImpl userDetails=new UserDetailsImpl(repository.findByEmail(username).get());
-          return userDetails;
+          if (!idUserInStringFormat.equals("null")){
+              Long idConverted=Long.valueOf(idUserInStringFormat);
+              UserDomain entity=getUserById.execute(idConverted);
+              UserDetailsImpl userDetails=new UserDetailsImpl(entity);
+              return userDetails;
+          }
+          throw new InternalServerErroInfraException("o id contido no token está nulo quando convertido para String no loadByUsername.");
         }
         catch (AuthenticationException e){
-            throw new NotFoundInfraException("não foi possível encontrar o usuário pelo email passado pois: "+e.getMessage());
+         throw new UsernameNotFoundException("ocorreu o seguinte problema: "+e.getMessage());
         }
     }
 }

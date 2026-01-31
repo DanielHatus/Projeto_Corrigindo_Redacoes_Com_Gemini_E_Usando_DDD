@@ -5,6 +5,7 @@ import com.example.correct.Easy.core.domain.vo.Email;
 import com.example.correct.Easy.core.domain.vo.FullName;
 import com.example.correct.Easy.core.domain.vo.PasswordLogin;
 import com.example.correct.Easy.core.dto.request.RegisterUserRequestDto;
+import com.example.correct.Easy.core.dto.request.UpdateUserRequestDto;
 import com.example.correct.Easy.core.ports.BcryptPort;
 import com.example.correct.Easy.core.ports.ValidateStatePort;
 
@@ -18,10 +19,20 @@ public class CoreMapper{
         this.bcryptPort = bcryptPort;
     }
 
-    public UserDomain toUserDomain(RegisterUserRequestDto dto){
+    public UserDomain toDomain(RegisterUserRequestDto dto){
         return new UserDomain(
                 new FullName(dto.getFirstName(),dto.getLastName()),
                 new Email(dto.getEmail(),false,validateStatePort),
                 new PasswordLogin(dto.getPasswordLogin(),false,bcryptPort));
+    }
+
+    public UserDomain toDomain(UpdateUserRequestDto dto,UserDomain actEntity){
+        return new UserDomain(
+                actEntity.getId(),
+                new FullName(dto.getFirstName(), dto.getLastName()),
+                new Email(dto.getEmail(),false,validateStatePort),
+                new PasswordLogin(dto.getPasswordLogin(), false,bcryptPort),
+                actEntity.getPermission()
+        );
     }
 }

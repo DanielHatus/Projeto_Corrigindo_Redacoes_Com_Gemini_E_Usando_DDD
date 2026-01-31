@@ -1,5 +1,6 @@
 package com.example.correct.Easy.infra.security.implementations;
 
+import com.example.correct.Easy.core.domain.model.UserDomain;
 import com.example.correct.Easy.infra.persistence.model.UserPersistence;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,30 +11,33 @@ import java.util.List;
 
 public class UserDetailsImpl implements UserDetails{
 
-    private UserPersistence entityPersistence;
+    private UserDomain userDomain;
 
-    public UserDetailsImpl(UserPersistence entity){
-        this.entityPersistence=entity;
+    public UserDetailsImpl(UserDomain entity){
+        this.userDomain=entity;
     }
 
+    public Long getId(){
+        return this.userDomain.getId();
+    }
 
     public String getFullName(){
-        return this.entityPersistence.getFullName();
+        return this.userDomain.getFullName();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(this.entityPersistence.getPermission().name()));
+        return List.of(new SimpleGrantedAuthority(this.userDomain.getPermission().name()));
     }
 
     @Override
     public String getPassword() {
-        return this.entityPersistence.getPasswordLogin();
+        return this.userDomain.getPasswordLogin();
     }
 
     @Override
     public String getUsername() {
-        return this.entityPersistence.getEmail();
+        return this.userDomain.getEmail();
     }
 
     @Override

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class UserDbAdapter implements UserDbPort {
+public class UserDbAdapter implements UserDbPort{
 
 
     private final UserPersistence userPersistence;
@@ -39,12 +39,18 @@ public class UserDbAdapter implements UserDbPort {
     }
 
     @Override
-    public UserDomain updateEntity(UserDomain entity) {
-        return null;
+    public UserDomain updateEntity(UserDomain entityUpdatedData) {
+        UserPersistence entityPersistence= mapper.toPersistence(entityUpdatedData);
+        return mapper.toDomain(repository.save(entityPersistence));
     }
 
     @Override
     public void deleteById(Long id) {
      repository.deleteById(id);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return this.repository.existsByEmail(email);
     }
 }

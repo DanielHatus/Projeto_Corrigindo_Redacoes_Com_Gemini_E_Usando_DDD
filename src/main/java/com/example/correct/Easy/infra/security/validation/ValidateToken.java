@@ -1,6 +1,6 @@
 package com.example.correct.Easy.infra.security.validation;
 
-import com.example.correct.Easy.core.application.usecase.contracts.tokenversion.GetVersionTokenByIdContract;
+import com.example.correct.Easy.core.application.usecase.contracts.versiontoken.GetVersionTokenByIdContract;
 import com.example.correct.Easy.core.domain.model.VersionTokenDomain;
 import com.example.correct.Easy.infra.exception.typo.secundaries.security.GenericSecurityException;
 import com.example.correct.Easy.infra.exception.typo.secundaries.security.TokenExpiredException;
