@@ -33,9 +33,4 @@ public class VersionTokenCacheAdapter implements VersionTokenCachePort{
         return (versionTokenSearch==null?null:this.mapper.convertValue(versionTokenSearch,VersionTokenDomain.class));
     }
 
-    @Override
-    public void deleteVersionToken(Long id){
-    String generateKey=this.keyCache.execute("versionToken",id);
-    this.redisTemplate.delete(generateKey);
-    }
 }

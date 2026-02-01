@@ -33,4 +33,12 @@ public class VersionTokenDbAdapter implements VersionTokenDbPort {
         });
         return versionTokenDomain;
     }
+
+    @Override
+    public VersionTokenDomain updateVersionToken(VersionTokenDomain entityOld) {
+        VersionTokenDomain newVersionToken=new VersionTokenDomain(entityOld.getId(),entityOld.getUserRef(),entityOld.getTokenVersion());
+        newVersionToken.updateVersionToken();
+        VersionTokenPersistence versionTokenConvertedInPersistence=this.tokenMapper.toPersistence(newVersionToken);
+        return this.tokenMapper.toDomain(repository.save(versionTokenConvertedInPersistence));
+    }
 }

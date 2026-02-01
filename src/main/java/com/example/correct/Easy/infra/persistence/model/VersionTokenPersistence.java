@@ -1,6 +1,8 @@
 package com.example.correct.Easy.infra.persistence.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class VersionTokenPersistence{
@@ -9,6 +11,7 @@ public class VersionTokenPersistence{
     private Long id;
 
     @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private UserPersistence userRef;
 
     private Integer versionToken;

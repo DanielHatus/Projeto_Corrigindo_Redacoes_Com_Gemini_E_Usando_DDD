@@ -6,12 +6,12 @@ import com.example.correct.Easy.core.exceptions.DomainException;
 import com.example.correct.Easy.core.ports.versiontoken.cache.VersionTokenCachePort;
 import com.example.correct.Easy.core.ports.versiontoken.db.VersionTokenDbPort;
 
-public class GetTokenByIdImpl implements GetVersionTokenByIdContract{
+public class GetVersionTokenByIdImpl implements GetVersionTokenByIdContract{
 
     private final VersionTokenDbPort versionTokenDbPort;
     private final VersionTokenCachePort versionTokenCachePort;
 
-    public GetTokenByIdImpl(VersionTokenDbPort versionTokenDbPort, VersionTokenCachePort versionTokenCachePort) {
+    public GetVersionTokenByIdImpl(VersionTokenDbPort versionTokenDbPort, VersionTokenCachePort versionTokenCachePort) {
         this.versionTokenDbPort = versionTokenDbPort;
         this.versionTokenCachePort = versionTokenCachePort;
     }
@@ -22,7 +22,9 @@ public class GetTokenByIdImpl implements GetVersionTokenByIdContract{
         VersionTokenDomain searchVersionTokenInCache=this.versionTokenCachePort.getVersionTokenById(id);
         if (searchVersionTokenInCache!=null){return searchVersionTokenInCache;}
 
-        return versionTokenDbPort.getVersionById(id)
+        VersionTokenDomain entityReturned=versionTokenDbPort.getVersionById(id)
               .orElseThrow(()->new DomainException("a versão do token não foi encontrada para a entidade do id: "+id));
+        this.versionTokenCachePort.saveVersionToken(entityReturned);
+        return entityReturned;
     }
 }

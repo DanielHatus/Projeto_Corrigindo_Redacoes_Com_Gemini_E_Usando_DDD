@@ -43,7 +43,7 @@ public class UpdateUserOrchestrator{
        validateEmail.execute(dto.getEmail(), isRegistered.execute(dto.getEmail()));
        Long idUserToken= utilsPort.getIdUserInContextSecurity();
        UserDomain entityUpdated=updateUser.execute(dto,getUserById.execute(idUserToken));
-       VersionTokenDomain versionTokenUpdate=updateVersionToken.execute(this.getVersionTokenById.execute(entityUpdated.getId()));
+       VersionTokenDomain versionTokenUpdate=this.updateVersionToken.execute(this.getVersionTokenById.execute(entityUpdated.getId()));
        return new TokensJwtResponseDto(
                this.generateAccessToken.execute(entityUpdated.getEmail(), entityUpdated.getId(), versionTokenUpdate.getTokenVersion()),
                this.generateRefreshToken.execute(entityUpdated.getEmail(), entityUpdated.getId(),versionTokenUpdate.getTokenVersion()));

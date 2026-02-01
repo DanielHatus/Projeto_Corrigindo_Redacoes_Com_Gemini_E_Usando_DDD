@@ -16,8 +16,9 @@ public class VersionTokenDomain{
     }
 
     public VersionTokenDomain(Long id,UserDomain userRef,Integer tokenVersion){
+        this.id=id;
         this.userRef=validateUserRef(userRef);
-        this.tokenVersion=1;
+        this.tokenVersion=tokenVersion;
     }
 
     public VersionTokenDomain(UserDomain userRef){
@@ -36,4 +37,6 @@ public class VersionTokenDomain{
     public Integer getTokenVersion() {
         return tokenVersion;
     }
+
+    public void updateVersionToken(){this.tokenVersion+=1;}
 }
